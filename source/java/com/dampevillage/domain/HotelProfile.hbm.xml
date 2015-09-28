@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.dampevillage.domain">
+
+	<class name="HotelProfile" table="hotel_profile">
+
+		<id name="id" column="profile_id" type="int">
+			<generator class="increment" />
+		</id>
+
+		<property name="addressOne" type="string" column="address_1" />
+
+		<property name="addressTwo" type="string" column="address_2" />
+
+		<property name="description" type="string" column="hotel_description" />
+
+		<property name="direction" type="string" column="direction" />
+
+		<property name="city" type="string" column="city" />
+
+		<property name="hotelName" type="string" column="hotel_name" />
+
+		<property name="country" type="string" column="country" />
+
+		<property name="contactNumberOne" type="string" column="contact_number_1" />
+
+		<property name="contactNumberTwo" type="string" column="contact_number_2" />
+
+		<property name="postalCode" type="string" column="postal_code" />
+
+		<property name="otherWeb" type="string" column="other_webs" />
+
+		<property name="email" type="string" column="email" />
+
+		<property name="fax" type="string" column="fax" />
+
+	</class>
+</hibernate-mapping>

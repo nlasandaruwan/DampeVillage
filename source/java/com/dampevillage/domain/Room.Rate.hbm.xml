@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.dampevillage.domain">
+
+	<class name="RoomRate" table="room_rates">
+
+		<id name="id" column="room_rate_id" type="int">
+			<generator class="increment" />
+		</id>
+		
+		<many-to-one name="roomCategory" class="RoomCategory" column="room_category_id" not-null="true"/>
+		
+		<many-to-one name="roomType" class="RoomType" column="room_type_id" not-null="true"/>
+		
+		<many-to-one name="accomodationMode" class="AccomodationMode" column="accomodation_mode_id" not-null="true"/>
+		
+		<property name="validFrom" type="date" column="valid_from"/>
+		
+		<property name="validTo" type="date" column="valid_to"/>
+		
+		<property name="price" type="long" column="price"/>
+		
+		<sql-query name="searchRoomRate">
+			<return alias="r"  class="com.dampevillage.domain.RoomRate" />			
+			<![CDATA[
+				
+				SELECT r.* FROM room_rates AS r
+					WHERE room_category_id = ?
+    				AND room_type_id = ?
+					AND accomodation_mode_id = ?
+    				AND valid_from <= ?
+    				AND valid_to >= ?
+			]]>		
+		</sql-query>
+		
+		<sql-query name="searchRoomRateOverLap">
+			<return alias="r"  class="com.dampevillage.domain.RoomRate" />			
+			<![CDATA[
+				
+				SELECT * FROM room_rates AS r
+					where valid_to >= ?
+					AND valid_from <= ?
+					AND room_category_id = ?
+					AND room_type_id = ?
+					AND accomodation_mode_id = ?
+			]]>		
+		</sql-query>
+		
+	</class>
+</hibernate-mapping>

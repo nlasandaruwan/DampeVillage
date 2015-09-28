@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE web-app PUBLIC
+        "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+        "http://java.sun.com/dtd/web-app_2_3.dtd">
+
+<web-app>
+	<!--
+		<resource-ref>
+		<res-ref-name>jdbc/MyDB</res-ref-name>
+		<res-type>javax.sql.DataSource</res-type>
+		<res-auth>Container</res-auth>
+		</resource-ref>
+	-->
+	<!-- ******************************************** -->
+	<!-- ***********  Servlet Definitions************ -->
+	<servlet>
+		<servlet-name>action</servlet-name>
+		<servlet-class>org.apache.struts.action.ActionServlet</servlet-class>
+		<init-param>
+			<param-name>config</param-name>
+			<param-value>/WEB-INF/struts-config.xml</param-value>
+		</init-param>
+		<init-param>
+			<param-name>debug</param-name>
+			<param-value>3</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<!-- +===================================================================+-->
+	<!-- |  S E R V L E T   D E F I N I T I O N S   G O E S   H E R E        |-->
+	<!-- +===================================================================+-->
+	<!-- Definitions for index-->
+
+	<!-- Login Related -->
+
+	<servlet>
+		<servlet-name>login_jsp</servlet-name>
+		<jsp-file>/WEB-INF/jsp/login/Login.jsp</jsp-file>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>new_user_jsp</servlet-name>
+		<jsp-file>/WEB-INF/jsp/customer/add_User.jsp</jsp-file>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>profile_jsp</servlet-name>
+		<jsp-file>/WEB-INF/jsp/profiles/user/Pro_user.jsp</jsp-file>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>roomCategory_jsp</servlet-name>
+		<jsp-file>/WEB-INF/jsp/master/roomCategory/RoomCategory.jsp</jsp-file>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>room_jsp</servlet-name>
+		<jsp-file>/WEB-INF/jsp/master/room/Room.jsp</jsp-file>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>hotel_profile_jsp</servlet-name>
+		<jsp-file>/WEB-INF/jsp/profiles/hotel/HotelProfile.jsp</jsp-file>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>room_rate_jsp</servlet-name>
+		<jsp-file>/WEB-INF/jsp/master/roomRate/RoomRate.jsp</jsp-file>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>reservation_jsp</servlet-name>
+		<jsp-file>/WEB-INF/jsp/reservation/Reservation.jsp</jsp-file>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>staffProfile_jsp</servlet-name>
+		<jsp-file>/WEB-INF/jsp/profiles/staff/StaffProfile.jsp</jsp-file>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>passworRecover_jsp</servlet-name>
+		<jsp-file>/WEB-INF/jsp/login/PasswordRecover.jsp</jsp-file>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>roomCategoryPopUp_jsp</servlet-name>
+		<jsp-file>/WEB-INF/jsp/master/roomCategory/RoomCategoryPopUp.jsp</jsp-file>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>reservationPopUp_jsp</servlet-name>
+		<jsp-file>/WEB-INF/jsp/reservation/ReservationPopUp.jsp</jsp-file>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>contactUs_jsp</servlet-name>
+		<jsp-file>/WEB-INF/jsp/contactUs/ContactUs.jsp</jsp-file>
+	</servlet>
+
+	<servlet>
+		<servlet-name>notification_Servlet</servlet-name>
+		<jsp-file>/WEB-INF/jsp/master/notification/EmailNotification.jsp</jsp-file>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>galleryPopUp_jsp</servlet-name>
+		<jsp-file>/WEB-INF/jsp/common/GalleryPopUp.jsp</jsp-file>
+	</servlet>
+	
+	<!-- Report related jsp files -->
+
+	<servlet>
+		<servlet-name>viewallcustomers_jsp</servlet-name>
+		<jsp-file>/WEB-INF/jsp/report/admin/ViewCustomerDetails.jsp</jsp-file>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>viewCustomerReservations_jsp</servlet-name>
+		<jsp-file>/WEB-INF/jsp/report/manager/ViewCustomerReservationDetails.jsp</jsp-file>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>viewCustomerReservationStatus_jsp</servlet-name>
+		<jsp-file>/WEB-INF/jsp/report/manager/ViewCustomerReservationStatus.jsp</jsp-file>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>AllReservationsForDateRange.jsp</servlet-name>
+		<jsp-file>/WEB-INF/jsp/report/manager/AllReservationsForDateRange.jsp</jsp-file>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>IncomesForDateRange.jsp</servlet-name>
+		<jsp-file>/WEB-INF/jsp/report/manager/IncomesForDateRange.jsp</jsp-file>
+	</servlet>
+	
+	
+	<!-- +===================================================================+-->
+	<!-- |  S E R V L E T   M A P P I N S   G O E S   H E R E                |-->
+	<!-- +===================================================================+-->
+	<servlet-mapping>
+		<servlet-name>action</servlet-name>
+		<url-pattern>*.do</url-pattern>
+	</servlet-mapping>
+
+	<!--  Login Related -->
+
+	<servlet-mapping>
+		<servlet-name>login_jsp</servlet-name>
+		<url-pattern>/showLogin</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>new_user_jsp</servlet-name>
+		<url-pattern>/showNewUser</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>profile_jsp</servlet-name>
+		<url-pattern>/showProfile</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>roomCategory_jsp</servlet-name>
+		<url-pattern>/showRoomCategory</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>room_jsp</servlet-name>
+		<url-pattern>/showRoom</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>hotel_profile_jsp</servlet-name>
+		<url-pattern>/showHotelProfile</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>room_rate_jsp</servlet-name>
+		<url-pattern>/showRoomRates</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>reservation_jsp</servlet-name>
+		<url-pattern>/showReservation</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>staffProfile_jsp</servlet-name>
+		<url-pattern>/showStaffProfile</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>passworRecover_jsp</servlet-name>
+		<url-pattern>/showPasswordRecover</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>roomCategoryPopUp_jsp</servlet-name>
+		<url-pattern>/roomCategoryPopUp</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>reservationPopUp_jsp</servlet-name>
+		<url-pattern>/reservationPopUp</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>contactUs_jsp</servlet-name>
+		<url-pattern>/contactUs</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>galleryPopUp_jsp</servlet-name>
+		<url-pattern>/viewGallery</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>notification_Servlet</servlet-name>
+		<url-pattern>/notifyMail</url-pattern>
+	</servlet-mapping>
+	
+	<!-- Report related mappings -->
+	
+	<servlet-mapping>
+		<servlet-name>viewallcustomers_jsp</servlet-name>
+		<url-pattern>/viewCustomerDetails</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>viewCustomerReservations_jsp</servlet-name>
+		<url-pattern>/viewCustomerReservations</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>viewCustomerReservationStatus_jsp</servlet-name>
+		<url-pattern>/viewCustomerReservationStatus</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>AllReservationsForDateRange.jsp</servlet-name>
+		<url-pattern>/viewReservationsForDateRange</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>IncomesForDateRange.jsp</servlet-name>
+		<url-pattern>/viewIncomesForDateRange</url-pattern>
+	</servlet-mapping>
+
+	
+	
+	<!-- ********************************* -->
+	<!-- Welcome File -->
+	<!-- ********************************* -->
+	<welcome-file-list>
+		<welcome-file>/WEB-INF/jsp/profiles/user/Pro_user.jsp</welcome-file>
+	</welcome-file-list>
+	
+	 <!-- Struts Tag Library Descriptors -->
+  <taglib>
+    <taglib-uri>/tags/struts-bean</taglib-uri>
+    <taglib-location>/WEB-INF/tlb/struts-bean.tld</taglib-location>
+  </taglib>
+
+  <taglib>
+    <taglib-uri>/tags/struts-html</taglib-uri>
+    <taglib-location>/WEB-INF/tlb/struts-html.tld</taglib-location>
+  </taglib>
+
+  <taglib>
+    <taglib-uri>/tags/struts-logic</taglib-uri>
+    <taglib-location>/WEB-INF/tlb/struts-logic.tld</taglib-location>
+  </taglib>
+
+  <taglib>
+    <taglib-uri>/tags/struts-nested</taglib-uri>
+    <taglib-location>/WEB-INF/tlb/struts-nested.tld</taglib-location>
+  </taglib>
+
+  <taglib>
+    <taglib-uri>/tags/struts-tiles</taglib-uri>
+    <taglib-location>/WEB-INF/tlb/struts-tiles.tld</taglib-location>
+  </taglib>
+  
+</web-app>

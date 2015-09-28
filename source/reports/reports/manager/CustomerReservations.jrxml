@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CustomerReservations" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="First_Name" class="java.lang.String"/>
+	<parameter name="Last_Name" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select r.* from reservation r
+inner join customer c
+where r.customer_id = c.customer_id
+AND r.reservation_status='PENDING'
+AND c.first_name=$P{First_Name}
+AND c.last_name=$P{Last_Name}]]>
+	</queryString>
+	<field name="reservation_id" class="java.lang.Integer"/>
+	<field name="from_Date" class="java.sql.Date"/>
+	<field name="to_Date" class="java.sql.Date"/>
+	<field name="customer_Id" class="java.lang.Integer"/>
+	<field name="payment_Id" class="java.lang.Integer"/>
+	<field name="arrival_from" class="java.lang.String"/>
+	<field name="arrive_for" class="java.lang.String"/>
+	<field name="leave_after" class="java.lang.String"/>
+	<field name="airport_pickup" class="java.lang.String"/>
+	<field name="accomodation_mode_id" class="java.lang.Integer"/>
+	<field name="nationality" class="java.lang.String"/>
+	<field name="noof_rooms" class="java.lang.Integer"/>
+	<field name="adults" class="java.lang.Integer"/>
+	<field name="children" class="java.lang.Integer"/>
+	<field name="reservation_status" class="java.lang.String"/>
+	<field name="room_category" class="java.lang.String"/>
+	<field name="room_type" class="java.lang.String"/>
+	<field name="room_category_id" class="java.lang.Integer"/>
+	<field name="room_type_id" class="java.lang.Integer"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="190" splitType="Stretch">
+			<staticText>
+				<reportElement x="139" y="150" width="296" height="29"/>
+				<textElement>
+					<font size="15" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[DampeVillage Reservation For Customer]]></text>
+			</staticText>
+			<image>
+				<reportElement x="0" y="-5" width="300" height="140"/>
+				<imageExpression class="java.lang.String"><![CDATA["images/Logo/LOGO.jpg"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="28" splitType="Stretch">
+			<staticText>
+				<reportElement x="12" y="0" width="84" height="20"/>
+				<textElement>
+					<font size="14" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[From Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="118" y="0" width="86" height="20"/>
+				<textElement>
+					<font size="14" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[To Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="220" y="0" width="108" height="20"/>
+				<textElement>
+					<font size="14" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Room Category]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="355" y="1" width="80" height="20"/>
+				<textElement>
+					<font size="14" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Room Type]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="450" y="1" width="105" height="20"/>
+				<textElement>
+					<font size="14" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[No Of Rooms]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="43" splitType="Stretch">
+			<textField>
+				<reportElement x="12" y="11" width="84" height="20"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{from_Date}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="118" y="11" width="86" height="20"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{to_Date}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="220" y="11" width="108" height="20"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{room_category}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="355" y="11" width="80" height="20"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{room_type}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="450" y="11" width="86" height="20"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{noof_rooms}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -1,0 +1,98 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.dampevillage.domain">
+
+	<class name="Reservation" table="reservation">
+
+		<id name="id" column="reservation_id" type="int">
+			<generator class="increment" />
+		</id>
+
+		<property name="fromDate" type="date" column="from_Date"/>
+		
+		<property name="toDate" type="date" column="to_Date"/>
+
+		<many-to-one name="customer" class="Customer" column="customer_Id" cascade="none"/>
+		
+		<many-to-one name="payment" class="Payment" column="payment_Id" cascade="save-update,delete,merge" not-null="false" />
+		
+		<property name="arrivalFrom" type="string" column="arrival_from"/>
+		
+		<property name="arriveFor" type="string" column="arrive_for"/>
+		
+		<property name="leaveAfter" type="string" column="leave_after"/>
+		
+		<property name="airportPickup" type="string" column="airport_pickup"/>
+		
+		<many-to-one name="accomodationMode" class="AccomodationMode" column="accomodation_mode_id" cascade="none"/>
+		
+		<property name="nationality" type="string" column="nationality"/>
+		
+		<property name="noOfRooms" type="int" column="noof_rooms"/>
+		
+		<property name="adults" type="int" column="adults"/>
+		
+		<property name="children" type="int" column="children"/>
+		
+		<property name="reservationStatus" type="string" column="reservation_status"/>
+		
+		<property name="roomCategory" type="string" column="room_category"/>
+		
+		<property name="roomType" type="string" column="room_type"/>
+		
+		<property name="roomCategoryId" type="int" column="room_category_id"/>
+		
+		<property name="roomTypeId" type="int" column="room_type_id"/>
+		
+		<set name="rooms" table="roomreservation" cascade="save-update,merge">
+				<key column="reservation_Id"/>
+				<many-to-many class="Room" column="room_Id"/>
+		</set>
+		
+		<sql-delete>
+			<![CDATA[
+				UPDATE reservation SET reservation_status = 'CANCELLED', payment_Id = null
+					WHERE reservation_id = ?
+			]]>		
+		</sql-delete>
+		
+		
+		<sql-query name="viewAllReservations">
+			<return alias="res" class="com.dampevillage.domain.Reservation"/>
+				
+			<![CDATA[
+			
+					SELECT DISTINCT res.*
+                		FROM reservation AS res
+
+    						INNER JOIN roomreservation rr ON  res.reservation_Id = rr.reservation_Id
+    						INNER JOIN room roo ON  rr.room_Id = roo.room_id
+    						INNER JOIN room_category rc ON  roo.room_category_id = rc.room_category_id
+    						INNER JOIN room_type rt ON  roo.room_type_id = rt.room_type_id
+
+    					WHERE reservation_status = "PENDING" AND customer_id= ?
+		
+			]]>		
+		</sql-query>
+		
+		<sql-query name="searchReservations">
+			<return alias="res" class="com.dampevillage.domain.Reservation"/>
+				
+			<![CDATA[
+			
+					SELECT DISTINCT res.*
+                		FROM reservation AS res
+    						INNER JOIN customer cus ON  res.customer_Id = cus.customer_id
+    					WHERE res.from_Date = ? 
+    					AND res.to_Date = ? 
+    					AND reservation_status = "PENDING" 
+    					AND cus.user_name = ?
+		
+			]]>		
+		</sql-query>
+		
+	</class>
+</hibernate-mapping>

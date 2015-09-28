@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.dampevillage.domain">
+
+	<class name="Room" table="room">
+
+		<id name="id" column="room_Id" type="int">
+			<generator class="increment" />
+		</id>
+		
+		<many-to-one name="roomType" class="RoomType" column="room_type_id" not-null="true" cascade="none"/>
+		
+		<property name="roomDescription" type="string" column="room_description"/>
+		
+		<many-to-one name="roomCategory" class="RoomCategory" column="room_category_id" not-null="true" cascade="none"/>
+		
+		<property name="roomNumber" type="string" column="room_number"/>
+		
+		<property name="floorNumber" type="int" column="floor_number"/>
+		
+		<set name="reservations" table="roomreservation" inverse="true">
+				<key column="room_Id"/>
+				<many-to-many class="Reservation" column="reservation_Id" />
+		</set>
+		
+		<sql-query name="checkAvailability1">
+			<return alias="r"  class="com.dampevillage.domain.Room" />			
+			<![CDATA[
+			
+				SELECT r.* FROM room AS r WHERE room_Id NOT IN(
+					SELECT DISTINCT roomreservation.room_Id
+						FROM roomreservation
+							INNER JOIN reservation
+							ON roomreservation.reservation_Id=reservation.reservation_Id
+							WHERE reservation.reservation_status = 'PENDING'
+							AND reservation.from_Date BETWEEN ? AND ?
+							OR reservation.to_Date BETWEEN ? AND ?) 
+							AND room_type_id = ? and room_category_id = ?
+							ORDER BY room_category_id
+								
+			]]>		
+		</sql-query>
+		
+		<sql-query name="checkAvailability">
+			<return alias="r"  class="com.dampevillage.domain.Room" />			
+			<![CDATA[
+			
+				SELECT r.* FROM room AS r WHERE room_Id NOT IN(
+							SELECT DISTINCT roomreservation.room_Id
+								FROM roomreservation
+									INNER JOIN reservation
+									ON roomreservation.reservation_Id=reservation.reservation_Id
+									WHERE reservation.reservation_status = 'PENDING'
+									AND reservation.from_Date BETWEEN ? AND ?
+									OR reservation.to_Date BETWEEN ? AND ?
+		             		 		OR reservation.from_Date < ? AND reservation.to_Date > ? )
+									AND room_type_id = ? and room_category_id = ?
+									ORDER BY room_category_id
+		]]>		
+		</sql-query>
+					
+		<sql-query name="getRoomsOfReservation">
+			<return alias="r"  class="com.dampevillage.domain.Room" />			
+			<![CDATA[
+			
+				select r.* from room as r where room_Id IN (
+						SELECT DISTINCT roomreservation.room_Id
+						FROM roomreservation
+							INNER JOIN reservation
+							ON roomreservation.reservation_Id=reservation.reservation_Id
+              			AND reservation.reservation_Id = ? )
+								
+			]]>		
+		</sql-query>
+		
+	</class>
+</hibernate-mapping>

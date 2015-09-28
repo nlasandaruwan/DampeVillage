@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN" "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+	
+	<form-beans>
+		<form-bean 	name="userFormBean" 
+					type="com.dampevillage.customer.formbean.CustomerFormBean"/>
+					
+		<form-bean 	name="searchbean" 
+					type="com.dampevillage.search.formbean.SearchBean"> 			
+		</form-bean>
+		
+		<form-bean 	name="loginBean" 
+					type="com.dampevillage.log.formbean.LoginFormBean"/>
+					
+		<form-bean 	name="roomCategoryBean" 
+					type="com.dampevillage.admin.roomcatagory.formbean.RoomCategoryFormBean"/>
+					
+		<form-bean 	name="roomBean" 
+					type="com.dampevillage.admin.room.formbean.RoomFormBean"/>
+					
+		<form-bean 	name="hotelProfileBean" 
+					type="com.dampevillage.admin.hotelprofile.formbean.HotelProfileFormBean"/>		
+					
+		<form-bean 	name="roomRateBean" 
+					type="com.dampevillage.admin.roomrate.formbean.RoomRateFormBean"/>	
+					
+		<form-bean 	name="roomPoolBean" 
+					type="com.dampevillage.admin.roompool.formbean.RoomPoolFormBean"/>
+					
+		<form-bean 	name="reservationBean" 
+					type="com.dampevillage.reservation.formbean.ReservationFormBean"/>
+					
+		<form-bean 	name="reservationConfirmationBean" 
+					type="com.dampevillage.reservation.formbean.ReserConfirmationvationFormBean"/>
+					
+		<form-bean 	name="paymentBean" 
+					type="com.dampevillage.payment.formbean.PaymentFormBean"/>
+					
+		<form-bean 	name="searchReservationBean" 
+					type="com.dampevillage.reservation.formbean.SearchReservationFormBean"/>
+					
+		<form-bean 	name="roomTypeBean" 
+					type="com.dampevillage.admin.roomtype.formbean.RoomTypeFormBean"/>
+					
+		<form-bean 	name="passwordRecoverBean" 
+					type="com.dampevillage.log.formbean.PasswordRecoverFormBean"/>
+					
+					
+					
+	</form-beans>
+	
+	<global-forwards>
+		<forward name="generalException" path="/WEB-INF/jsp/exception/general/GeneralException.jsp"></forward>
+		<forward name="databaseException" path="/WEB-INF/jsp/exception/sql/DatabaseException.jsp"></forward>
+		<forward name="emailException" path="/WEB-INF/jsp/exception/email/EmailException.jsp"></forward>
+		<forward name="invalidSessionOrUser" path="/WEB-INF/jsp/login/Login.jsp"></forward>
+		
+	</global-forwards>
+	
+	<!--
+		========== Action Mapping Definitions
+		===================================
+	-->
+	<action-mappings>
+
+		<!--  Login related  -->
+
+		<action path="/goLogin" type="com.dampevillage.log.actionservlet.LoginAction" 
+														name="loginBean" validate="false" scope="request">
+			<forward name="successUser" path="/WEB-INF/jsp/profiles/user/Pro_user.jsp" redirect="false" />
+			<forward name="successStaff" path="/WEB-INF/jsp/profiles/staff/StaffProfile.jsp" redirect="false" />
+			<forward name="invalideUser" path="/WEB-INF/jsp/login/Login.jsp" redirect="false" />
+			<forward name="reservationRedirect" path="/WEB-INF/jsp/login/Login.jsp" redirect="false" />
+			<forward name="backToReservationPage" path="/reservation.do?hdnMode=afterSuccessfulLogin" redirect="false" />
+			<forward name="logOut" path="/WEB-INF/jsp/login/Login.jsp" redirect="false" />
+			<forward name="invalideUserData" path="/WEB-INF/jsp/login/Login.jsp" redirect="false" />
+		</action>
+		
+		<action path="/search" type="com.dampevillage.search.actionservlet.SearchAction" name="searchbean" validate="false">
+			<forward name="success" path="/WEB-INF/jsp/profiles/user/Pro_user.jsp" redirect="false" />
+			<forward name="backToStaffProfile" path="/WEB-INF/jsp/profiles/staff/StaffProfile.jsp" redirect="false" />
+			<forward name="invalidSearchData" path="/WEB-INF/jsp/profiles/user/Pro_user.jsp" redirect="false" />
+		</action>
+		
+		<action path="/customer" type="com.dampevillage.customer.actionservlet.CustomerAction" 
+				name="userFormBean" scope="request" input="/WEB-INF/jsp/customer/add_User.jsp" validate="false">
+			<!-- After add new user pass to user profile jsp page -->	
+			<forward name="success" path="/WEB-INF/jsp/customer/add_User.jsp" redirect="false" />	
+			<!-- After load existing user pass back to adduser.jsp to edit him -->	
+			<forward name="editUser" path="/WEB-INF/jsp/customer/add_User.jsp" redirect="false" />
+			<forward name="successStaff" path="/WEB-INF/jsp/profiles/staff/StaffProfile.jsp" redirect="false" />
+			<forward name="viewAllCustomers" path="/WEB-INF/jsp/profiles/user/Pro_user.jsp" redirect="false" />
+			<forward name="invalidUserData" path="/WEB-INF/jsp/customer/add_User.jsp" redirect="false" />
+		</action>
+
+		<action path="/DampeVillageroomCategory" type="com.dampevillage.admin.roomcatagory.actionservlet.RoomCategoryAction" 
+																				name="roomCategoryBean" validate="false">
+			<forward name="success" path="/WEB-INF/jsp/master/roomCategory/RoomCategory.jsp" redirect="false" />
+			<forward name="exceptionInRoomCategory" path="/WEB-INF/jsp/master/roomCategory/RoomCategory.jsp" redirect="false" />
+			<forward name="successPopUp" path="/WEB-INF/jsp/master/roomCategory/RoomCategoryPopUp.jsp" redirect="false" />
+			<forward name="invalidRoomCategoryData" path="/WEB-INF/jsp/master/roomCategory/RoomCategory.jsp" redirect="false" />
+			
+		</action>
+		
+		<action path="/room" type="com.dampevillage.admin.room.actionservlet.RoomAction" name="roomBean" validate="false">
+			<forward name="success" path="/WEB-INF/jsp/master/room/Room.jsp" redirect="false" />
+			<forward name="invalidRoomData" path="/WEB-INF/jsp/master/room/Room.jsp" redirect="false" />
+		</action>
+		
+		<action path="/hotelProfile" type="com.dampevillage.admin.hotelprofile.actionservlet.HotelProfileAction" name="hotelProfileBean" validate="false">
+			<forward name="success" path="/WEB-INF/jsp/profiles/hotel/HotelProfile.jsp" redirect="false" />
+			<forward name="successContactUs" path="/WEB-INF/jsp/contactUs/ContactUs.jsp" redirect="false" />
+			<forward name="invalidHotelProfileData" path="/WEB-INF/jsp/profiles/hotel/HotelProfile.jsp" redirect="false" />
+			
+		</action>
+		
+		<action path="/roomRates" type="com.dampevillage.admin.roomrate.actionservlet.RoomRateAction" name="roomRateBean" validate="false">
+			<forward name="success" path="/WEB-INF/jsp/master/roomRate/RoomRate.jsp" redirect="false" />
+			<forward name="invalidRoomRateData" path="/WEB-INF/jsp/master/roomRate/RoomRate.jsp" redirect="false" />
+			<forward name="dateOverlapException" path="/WEB-INF/jsp/master/roomRate/RoomRate.jsp" redirect="false" />
+			
+			
+		</action>
+		
+		<action path="/roomPool" type="com.dampevillage.admin.roompool.actionservlet.RoomPoolAction" name="roomPoolBean" validate="false">
+			<forward name="success" path="/WEB-INF/jsp/master/roomPool/RoomPool.jsp" redirect="false" />
+			<forward name="invalidRoomPoolData" path="/WEB-INF/jsp/master/roomPool/RoomPool.jsp" redirect="false" />
+		</action>
+		
+		<action path="/reservation" type="com.dampevillage.reservation.actionservlet.ReservationAction" name="reservationBean" scope="request" validate="false">
+			<forward name="initLoadPage" path="/WEB-INF/jsp/reservation/Reservation.jsp" redirect="false" />
+			<forward name="pleaseLoginFirst" path="/goLogin.do?hdnMode=reservationRedirect" redirect="false" />
+			<forward name="reservationConfirmation" path="/WEB-INF/jsp/reservation/ReservationConfirmation.jsp" redirect="false" />
+			<forward name="successReservation" path="/WEB-INF/jsp/profiles/user/Pro_user.jsp" redirect="false" />
+			<forward name="successConfirmation" path="/WEB-INF/jsp/profiles/staff/StaffProfile.jsp" redirect="false" />
+			<forward name="invalidRoomReservationData" path="/WEB-INF/jsp/reservation/Reservation.jsp" redirect="false" />	
+			<forward name="successPopUp" path="/WEB-INF/jsp/reservation/ReservationPopUp.jsp" redirect="false" />	
+			<forward name="tooLateToEditReservation" path="/WEB-INF/jsp/profiles/user/Pro_user.jsp" redirect="false" />
+			<forward name="tooLateToCancelReservation" path="/WEB-INF/jsp/profiles/user/Pro_user.jsp" redirect="false" />
+		</action>
+		
+		<action path="/reservationConfirmation" type="com.dampevillage.reservation.actionservlet.ReservationConfirmationAction" name="reservationConfirmationBean" validate="false">
+			<forward name="initLoadPage" path="/WEB-INF/jsp/reservation/Reservation.jsp" redirect="false" />
+			<forward name="paymentPage" path="/WEB-INF/jsp/payment/Payment.jsp" redirect="false" />
+			<forward name="noPayments" path="/reservation.do?hdnMode=noPayment" redirect="false" />
+		</action>
+		
+		<action path="/searchReservations" type="com.dampevillage.reservation.actionservlet.SearchReservationAction" name="searchReservationBean" validate="false">
+			<forward name="success" path="/WEB-INF/jsp/profiles/staff/StaffProfile.jsp" redirect="false" />
+			<forward name="invalidReservationSearchData" path="/WEB-INF/jsp/profiles/staff/StaffProfile.jsp" redirect="false" />
+		</action>
+		
+		<action path="/payment" type="com.dampevillage.payment.actionservlet.PaymentAction" name="paymentBean" validate="false">
+			<forward name="successPayment" path="/reservation.do?hdnMode=saveReservation" redirect="false" />
+			<forward name="paymentPage" path="/WEB-INF/jsp/payment/Payment.jsp" redirect="false" />
+			<forward name="invalidPaymentData" path="/WEB-INF/jsp/payment/Payment.jsp" redirect="false" />
+		</action>
+		
+		<action path="/roomType" type="com.dampevillage.admin.roomtype.actionservlet.RoomTypeAction" name="roomTypeBean" validate="false">
+			<forward name="success" path="/WEB-INF/jsp/master/roomType/RoomType.jsp" redirect="false" />
+			<forward name="exceptionInRoomType" path="/WEB-INF/jsp/master/roomType/RoomType.jsp" redirect="false" />
+			<forward name="invalidRoomTypeData" path="/WEB-INF/jsp/master/roomType/RoomType.jsp" redirect="false" />
+			
+		</action>
+		
+		<action path="/goRecover" type="com.dampevillage.log.actionservlet.PassworRecoverAction" name="passwordRecoverBean" validate="false">
+			<forward name="success" path="/WEB-INF/jsp/login/PasswordRecover.jsp" redirect="false" />
+			<forward name="invalidPasswordRecoverData" path="/WEB-INF/jsp/login/PasswordRecover.jsp" redirect="false" />
+		</action>
+		
+		<!-- Report related servlets -->
+		
+		<action path="/reports" type="com.dampevillage.report.action.ReportAction" validate="false">
+		
+			<forward name="successGetAllCustomers" path="/WEB-INF/jsp/profiles/user/Pro_user.jsp" redirect="false" />
+			<forward name="successGetAllCustomersByCountry" path="/WEB-INF/jsp/profiles/user/Pro_user.jsp" redirect="false" />
+			<forward name="AllReservationStatus" path="/WEB-INF/jsp/profiles/user/Pro_user.jsp" redirect="false" />
+			
+			<forward name="successCustomerDetails" path="/WEB-INF/jsp/report/admin/ViewCustomerDetails.jsp" redirect="false" />
+			<forward name="errorCustomerDetails" path="/WEB-INF/jsp/report/admin/ViewCustomerDetails.jsp" redirect="false" />
+			
+			
+			<forward name="successCustomerReservations" path="/WEB-INF/jsp/report/manager/ViewCustomerReservationDetails.jsp" redirect="false" />	
+			<forward name="errorCustomerReservations" path="/WEB-INF/jsp/report/manager/ViewCustomerReservationDetails.jsp" redirect="false" />
+			
+			
+			<forward name="errorCustomerReservationStatus" path="/WEB-INF/jsp/report/manager/ViewCustomerReservationStatus.jsp" redirect="false" />
+			<forward name="successCustomerReservationStatus" path="/WEB-INF/jsp/report/manager/ViewCustomerReservationStatus.jsp" redirect="false" />
+			
+			<forward name="errorReservationsForDateRange" path="/WEB-INF/jsp/report/manager/AllReservationsForDateRange.jsp" redirect="false" />
+			<forward name="successReservationsForDateRange" path="/WEB-INF/jsp/report/manager/AllReservationsForDateRange.jsp" redirect="false" />
+			
+			<forward name="errorIncomeForDateRange" path="/WEB-INF/jsp/report/manager/IncomesForDateRange.jsp" redirect="false" />
+			<forward name="successIncomeForDateRange" path="/WEB-INF/jsp/report/manager/IncomesForDateRange.jsp" redirect="false" />
+			
+			
+		</action>
+		
+		<action path="/mailNotify" type="com.dampevillage.admin.notification.actionservlet.NotificationAction">
+			<forward name="success" path="/WEB-INF/jsp/master/notification/EmailNotification.jsp" redirect="false" />
+			<forward name="invalidData" path="/WEB-INF/jsp/master/notification/EmailNotification.jsp" redirect="false" />
+			<forward name="successInquery" path="/WEB-INF/jsp/contactUs/ContactUs.jsp" redirect="false" />
+			
+		</action>
+		
+	</action-mappings>
+
+	<!--
+		============================================= Controller Configuration
+	-->
+
+	<controller processorClass="org.apache.struts.tiles.TilesRequestProcessor" />
+
+
+	<!--
+		======================================== Message Resources Definitions
+	-->
+
+	<message-resources parameter="com.dampevillage.common.messageresource.MessageResources" null="false" />
+
+	<plug-in className="org.apache.struts.tiles.TilesPlugin">
+
+		<!-- Path to XML definition file -->
+		<set-property property="definitions-config" value="/WEB-INF/tiles-defs.xml" />
+		<!-- Set Module-awareness to true -->
+		<set-property property="moduleAware" value="true" />
+	</plug-in>
+
+
+	<!--
+		=================================================== Validator plugin
+	-->
+
+	<plug-in className="org.apache.struts.validator.ValidatorPlugIn">
+		<set-property property="pathnames"
+			value="/WEB-INF/validator-rules.xml,/WEB-INF/validation.xml" />
+	</plug-in>
+
+
+</struts-config>
+

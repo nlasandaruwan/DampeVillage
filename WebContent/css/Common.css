@@ -1,0 +1,94 @@
+
+.body_details {
+	
+	background:url(../images/GreenBackGround2.jpg);
+	width:900px;		
+	background-repeat:repeat-x;
+	background-position:top center;
+	background-attachment:fixed	
+}
+
+.result_data_table {
+	border: 1px solid green;
+	border-width: 1px;
+	border-style: solid;
+	
+}
+
+.result_data_table th {
+	background-color: green;
+	color: white;
+}
+
+.result_data_table td {
+	padding: 5px;
+}
+
+.lbl_login_inf
+{
+	margin-left:20px;
+	padding-left:20px;
+}
+
+.footer
+{
+	#height:20px;
+	background-color: #9CE7B4;
+	color:#000000;
+	font-weight:bold;
+	text-align:center;
+	padding-top:10px;
+	padding-bottom:10px;
+}
+
+.login_div
+{
+	color:#000000;	
+}
+
+.table_header
+{
+	background-color: green;
+	border: 1px solid green;
+	color: white;
+	font-weight: bold;
+	padding: 5px;
+}
+
+.table_header space
+{
+	height: 3px;
+}
+
+.input_big
+{
+	width:260px;
+}
+
+.input_XL
+{
+	width:300px;
+}
+
+.input_text_area
+{
+	width:290px;
+	height:100px;
+}
+
+.input_medium
+{
+	width:150px;
+}
+
+.btn
+{
+	width:100px;
+	height:25px;
+}
+
+.dd_medium
+{
+	width:120px;
+}
+

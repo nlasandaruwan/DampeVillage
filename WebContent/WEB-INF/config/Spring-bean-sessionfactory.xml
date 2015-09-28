@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://www.springframework.org/schema/beans" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+                           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+                           http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd
+                           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+
+
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://localhost:3306/dampevillage" />
+		<property name="username" value="root" />
+		<property name="password" value="123" />
+
+	</bean>
+
+	<!-- session factory -->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+		<property name="mappingResources">
+			<list>
+
+				<value>com/dampevillage/domain/AccomodationMode.hbm.xml</value>
+				<value>com/dampevillage/domain/Customer.hbm.xml</value>
+				<value>com/dampevillage/domain/HotelProfile.hbm.xml</value>
+				<value>com/dampevillage/domain/Payment.hbm.xml</value>
+				<value>com/dampevillage/domain/Privilage.hbm.xml</value>
+				<value>com/dampevillage/domain/Reservation.hbm.xml</value>
+				<value>com/dampevillage/domain/Room.hbm.xml</value>
+				<value>com/dampevillage/domain/Room.Pool.hbm.xml</value>
+				<value>com/dampevillage/domain/Room.Rate.hbm.xml</value>
+				<value>com/dampevillage/domain/RoomCategory.hbm.xml</value>
+				<value>com/dampevillage/domain/RoomType.hbm.xml</value>
+
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.query.factory_class">org.hibernate.hql.classic.ClassicQueryTranslatorFactory
+				</prop>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+				<prop key="hibernate.max_fetch_depth">3</prop>
+				<prop key="show_sql">true</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="hibernateTemplate" class="org.springframework.orm.hibernate3.HibernateTemplate">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+
+	<!-- Hibernate platform Transaction manager  -->
+
+	<tx:advice id="txAdvice" transaction-manager="testTransactionManager">
+		<tx:attributes>
+
+			<tx:method name="searchRooms" propagation="REQUIRED" />
+			<tx:method name="saveReservation" propagation="REQUIRED" />
+			<tx:method name="saveOrUpdateUser" propagation="REQUIRED" rollback-for="javax.mail.MessagingException"/>
+			<tx:method name="get*" propagation="REQUIRED" read-only="true" />
+
+		</tx:attributes>
+	</tx:advice>
+
+	<aop:config>
+		<aop:advisor pointcut="execution(* com.dampevillage.manager.ManagerImpl.*(..))"
+			advice-ref="txAdvice" />
+	</aop:config>
+
+
+	<bean id="testTransactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+</beans>

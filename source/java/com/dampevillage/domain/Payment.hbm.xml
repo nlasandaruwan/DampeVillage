@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.dampevillage.domain">
+
+	<class name="Payment" table="payment">
+
+		<id name="id" column="payment_id" type="int">
+			<generator class="increment" />
+		</id>
+		
+		<property name="cardType" type="string" column="card_type"/>
+
+		<property name="paymentAmount" type="long" column="payment_amount"/>
+		
+		<property name="paymentDate" type="date" column="payment_date"/>
+		
+		<property name="cardHolderName" type="string" column="card_holder_name"/>
+		
+		<property name="cardExpirityYear" type="string" column="card_expire_year"/>
+		
+		<property name="cardExpirityMonth" type="string" column="card_expire_month"/>
+		
+		<property name="email" type="string" column="email"/>
+		
+		<property name="cardNumber" type="string" column="card_number"/>
+		
+	</class>
+</hibernate-mapping>

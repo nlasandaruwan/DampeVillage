@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.dampevillage.domain">
+
+	<class name="RoomPool" table="room_pool">
+
+		<id name="id" column="room_pool_id" type="int">
+			<generator class="increment" />
+		</id>
+		
+		<many-to-one name="roomCategory" class="RoomCategory" column="room_category_id" not-null="true"/>
+		
+		<many-to-one name="roomType" class="RoomType" column="room_type_id" not-null="true"/>
+		
+		<property name="totalNumberOfRooms" type="int" column="total_noof_rooms"/>
+		
+		<property name="roomsAvailable" type="int" column="available_rooms"/>
+				
+	</class>
+</hibernate-mapping>

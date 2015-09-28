@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="Table Dataset 1"/>
+	<queryString>
+		<![CDATA[SELECT c.* FROM customer c where c.privilage_id = 3]]>
+	</queryString>
+	<field name="customer_id" class="java.lang.Long"/>
+	<field name="first_name" class="java.lang.String"/>
+	<field name="last_name" class="java.lang.String"/>
+	<field name="address" class="java.lang.String"/>
+	<field name="country" class="java.lang.String"/>
+	<field name="postal_code" class="java.lang.String"/>
+	<field name="email" class="java.lang.String"/>
+	<field name="state" class="java.lang.String"/>
+	<field name="contact_mobile" class="java.lang.String"/>
+	<field name="user_name" class="java.lang.String"/>
+	<field name="password" class="java.lang.String"/>
+	<field name="contact_land" class="java.lang.String"/>
+	<field name="title" class="java.lang.String"/>
+	<field name="nic_passport_no" class="java.lang.String"/>
+	<field name="privilage_id" class="java.lang.Long"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="190" splitType="Stretch">
+			<staticText>
+				<reportElement x="206" y="155" width="193" height="23"/>
+				<textElement>
+					<font size="15" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DampeVillage Customers]]></text>
+			</staticText>
+			<image>
+				<reportElement x="0" y="2" width="300" height="140"/>
+				<imageExpression class="java.lang.String"><![CDATA["images/Logo/LOGO.jpg"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="32" splitType="Stretch">
+			<staticText>
+				<reportElement x="47" y="0" width="97" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[First Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="144" y="0" width="82" height="20"/>
+				<textElement>
+					<font size="14" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Last Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="226" y="0" width="74" height="20"/>
+				<textElement>
+					<font size="14" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Country]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="11" y="0" width="36" height="20"/>
+				<textElement>
+					<font size="14" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Title]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="300" y="0" width="150" height="20"/>
+				<textElement>
+					<font size="14" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Email]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="450" y="0" width="105" height="20"/>
+				<textElement>
+					<font size="14" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Mobile Number]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="38" splitType="Stretch">
+			<textField>
+				<reportElement x="11" y="0" width="36" height="20"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{title}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="47" y="0" width="97" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{first_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="144" y="0" width="82" height="20"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{last_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="226" y="0" width="74" height="20"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{country}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="450" y="0" width="105" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{contact_mobile}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="300" y="0" width="150" height="20"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{email}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

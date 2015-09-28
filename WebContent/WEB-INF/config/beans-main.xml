@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://www.springframework.org/schema/beans" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+                           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+                           http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd
+                           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+
+
+	<bean id="hotelmanager" class="com.dampevillage.manager.ManagerImpl">
+		
+		<property name="loginDelagate" ref="loginDelagate" />
+		<property name="searchDelagate" ref="searchDelagate" />
+		<property name="customerDelagate" ref="customerDelagate" />
+		<property name="roomCategoryDelagate" ref="roomCategoryDelagate" />
+		<property name="roomDelagate" ref="roomDelagate" />
+		<property name="hotelProfileDelagate" ref="hotelProfileDelagate" />
+		<property name="roomRateDelagate" ref="roomRateDelagate" />
+		<property name="roomPoolDelagate" ref="roomPoolDelagate" />
+		<property name="reservationDelagate" ref="reservationDelagate" />
+		<property name="paymentDelagate" ref="paymentDelagate" />
+		<property name="roomTypeDelagate" ref="roomTypeDelagate" />
+		
+	</bean>
+
+	<!-- ===================================== Delegate Definition ====================================== -->
+	
+	<bean name="loginDelagate" class="com.dampevillage.log.delegate.LoginDelagate">
+		<property name="loginDao" ref="loginDao" />
+	</bean>
+	
+	<bean name="searchDelagate" class="com.dampevillage.search.delegate.SearchDelagate">
+		<property name="searchDao" ref="searchDao" />
+	</bean>
+	
+	<bean name="customerDelagate" class="com.dampevillage.customer.delegate.CustomerDelagate">
+		<property name="customerDao" ref="customerDao" />
+	</bean>
+	
+	<bean name="roomCategoryDelagate" class="com.dampevillage.admin.roomcatagory.delegate.RoomCategoryDelagate">
+		<property name="roomCategoryDao" ref="roomCategoryDao" />
+	</bean>
+	
+	<bean name="roomDelagate" class="com.dampevillage.admin.room.delegate.RoomDelagate">
+		<property name="roomDao" ref="roomDao" />
+	</bean>
+	
+	<bean name="hotelProfileDelagate" class="com.dampevillage.admin.hotelprofile.delegate.HotelProfileDelagate">
+		<property name="profileDao" ref="profileDao" />
+	</bean>
+	
+	<bean name="roomRateDelagate" class="com.dampevillage.admin.roomrate.delegate.RoomRateDelagate">
+		<property name="roomRateDao" ref="roomRateDao" />
+	</bean>
+	
+	<bean name="roomPoolDelagate" class="com.dampevillage.admin.roompool.delegate.RoomPoolDelagate">
+		<property name="roomPoolDao" ref="roomPoolDao" />
+	</bean>
+	
+	<bean name="reservationDelagate" class="com.dampevillage.reservation.delegate.ReservationDelagate">
+		<property name="reservationDao" ref="reservationDao" />
+		<property name="searchDao" ref="searchDao" />
+	</bean>
+	
+	<bean name="paymentDelagate" class="com.dampevillage.payment.delegate.PaymentDelagate">
+		<property name="paymentDao" ref="paymentDao" />
+	</bean>
+	
+	<bean name="roomTypeDelagate" class="com.dampevillage.admin.roomtype.delegate.RoomTypeDelagate">
+		<property name="roomTypeDao" ref="roomTypeDao" />
+	</bean>
+	
+	
+	<!-- ===================================== Dao Definition ====================================== -->
+	
+	<bean name="loginDao" class="com.dampevillage.log.dao.impl.LoginDaoImpl">
+		<property name="hibernateTemplate">
+			<ref bean="hibernateTemplate" />
+		</property>
+	</bean>
+	
+	<bean name="searchDao" class="com.dampevillage.search.dao.impl.SearchDaoImpl">
+		<property name="hibernateTemplate">
+			<ref bean="hibernateTemplate" />
+		</property>
+	</bean>
+	
+	<bean name="customerDao" class="com.dampevillage.customer.dao.impl.CustomerDaoImpl">
+		<property name="hibernateTemplate">
+			<ref bean="hibernateTemplate" />
+		</property>
+	</bean>
+	
+	<bean name="roomCategoryDao" class="com.dampevillage.admin.roomcatagory.dao.impl.RoomCategoryDaoImpl">
+		<property name="hibernateTemplate">
+			<ref bean="hibernateTemplate" />
+		</property>
+	</bean>
+	
+	<bean name="roomDao" class="com.dampevillage.admin.room.dao.impl.RoomDaoImpl">
+		<property name="hibernateTemplate">
+			<ref bean="hibernateTemplate" />
+		</property>
+	</bean>
+
+	<bean name="profileDao" class="com.dampevillage.admin.hotelprofile.dao.impl.HotelProfileDaoImpl">
+		<property name="hibernateTemplate">
+			<ref bean="hibernateTemplate" />
+		</property>
+	</bean>
+	
+	<bean name="roomRateDao" class="com.dampevillage.admin.roomrate.dao.impl.RoomRateDaoImpl">
+		<property name="hibernateTemplate">
+			<ref bean="hibernateTemplate" />
+		</property>
+	</bean>
+	
+	<bean name="roomPoolDao" class="com.dampevillage.admin.roompool.dao.impl.RoomPoolDaoImpl">
+		<property name="hibernateTemplate">
+			<ref bean="hibernateTemplate" />
+		</property>
+	</bean>
+	
+	<bean name="reservationDao" class="com.dampevillage.reservation.dao.impl.ReservationDaoImpl">
+		<property name="hibernateTemplate">
+			<ref bean="hibernateTemplate" />
+		</property>
+	</bean>
+	
+	<bean name="paymentDao" class="com.dampevillage.payment.dao.impl.PaymentDaoImpl">
+		<property name="hibernateTemplate">
+			<ref bean="hibernateTemplate" />
+		</property>
+	</bean>
+	
+	<bean name="roomTypeDao" class="com.dampevillage.admin.roomtype.dao.impl.RoomTypeDaoImpl">
+		<property name="hibernateTemplate">
+			<ref bean="hibernateTemplate" />
+		</property>
+	</bean>
+
+</beans>
+

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="AllReservationStatusByCustomer" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="First_Name" class="java.lang.String"/>
+	<parameter name="Last_Name" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT r.reservation_status, count(r.reservation_status) as counts
+FROM reservation r inner join customer c on r.customer_Id = c.customer_id
+where c.first_name=$P{First_Name} and c.last_name = $P{Last_Name}
+Group by r.reservation_status]]>
+	</queryString>
+	<field name="reservation_status" class="java.lang.String"/>
+	<field name="counts" class="java.lang.Long"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="197" splitType="Stretch">
+			<staticText>
+				<reportElement x="172" y="160" width="255" height="24"/>
+				<textElement>
+					<font size="15" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Reservation Status by Customer]]></text>
+			</staticText>
+			<image>
+				<reportElement x="0" y="0" width="300" height="140"/>
+				<imageExpression class="java.lang.String"><![CDATA["images/Logo/LOGO.jpg"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="54" splitType="Stretch">
+			<staticText>
+				<reportElement x="26" y="23" width="146" height="19"/>
+				<textElement>
+					<font size="14" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Reservation Status]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="214" y="23" width="192" height="19"/>
+				<textElement>
+					<font size="14" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Number Of Reservations]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="37" splitType="Stretch">
+			<textField>
+				<reportElement x="26" y="17" width="146" height="20"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{reservation_status}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="214" y="17" width="100" height="20"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{counts}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="248" splitType="Stretch">
+			<pie3DChart>
+				<chart>
+					<reportElement x="26" y="0" width="437" height="248"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<pieDataset>
+					<keyExpression><![CDATA[$F{reservation_status}]]></keyExpression>
+					<valueExpression><![CDATA[$F{counts}]]></valueExpression>
+				</pieDataset>
+				<pie3DPlot>
+					<plot/>
+					<itemLabel color="#000000" backgroundColor="#FFFFFF"/>
+				</pie3DPlot>
+			</pie3DChart>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

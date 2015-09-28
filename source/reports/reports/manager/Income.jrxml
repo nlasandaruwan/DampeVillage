@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Income" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="From_Date" class="java.lang.String"/>
+	<parameter name="To_Date" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT c.first_Name,c.last_Name,r.from_Date,r.to_Date,p.payment_amount,
+(select sum(q.payment_amount)from payment q
+inner join reservation x on q.payment_id = x.payment_Id
+where q.payment_date between $P{From_Date} and $P{To_Date}
+And x.reservation_status='CONFIRMED') as maxa
+FROM reservation r
+inner join payment p on r.payment_Id = p.payment_id
+inner join customer c on r.customer_Id = c.customer_id
+where p.payment_date between $P{From_Date} and $P{To_Date}
+And r.reservation_status='CONFIRMED';]]>
+	</queryString>
+	<field name="first_Name" class="java.lang.String"/>
+	<field name="last_Name" class="java.lang.String"/>
+	<field name="from_Date" class="java.sql.Date"/>
+	<field name="to_Date" class="java.sql.Date"/>
+	<field name="payment_amount" class="java.lang.Long"/>
+	<field name="maxa" class="java.math.BigDecimal"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="193" splitType="Stretch">
+			<staticText>
+				<reportElement x="173" y="152" width="202" height="25"/>
+				<textElement>
+					<font size="15" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Monthly Income Report]]></text>
+			</staticText>
+			<image>
+				<reportElement x="1" y="0" width="300" height="140"/>
+				<imageExpression class="java.lang.String"><![CDATA["images/Logo/LOGO.jpg"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="221" y="33" width="80" height="20"/>
+				<textElement>
+					<font size="14" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[From Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="312" y="33" width="83" height="20"/>
+				<textElement>
+					<font size="14" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[To Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="33" width="114" height="20"/>
+				<textElement>
+					<font size="14" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Customer First Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="127" y="33" width="82" height="20"/>
+				<textElement>
+					<font size="14" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Last name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="414" y="33" width="115" height="20"/>
+				<textElement>
+					<font size="14" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Payment US $$]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="31" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="11" width="114" height="20"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{first_Name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="127" y="11" width="82" height="20"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{last_Name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="221" y="11" width="80" height="20"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{from_Date}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="312" y="11" width="83" height="20"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{to_Date}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="414" y="11" width="115" height="20"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{payment_amount}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="29" splitType="Stretch">
+			<textField>
+				<reportElement x="414" y="0" width="115" height="20"/>
+				<textElement>
+					<font size="15" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{maxa}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="96" y="0" width="299" height="20"/>
+				<textElement>
+					<font size="15" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total income for given time period US $$]]></text>
+			</staticText>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

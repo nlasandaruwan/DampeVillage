@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.dampevillage.domain">
+
+	<class name="Customer" table="customer">
+
+		<id name="id" column="customer_id" type="int">
+			<generator class="increment" />
+		</id>
+
+		<property name="firstName" type="string" column="first_name" />
+
+		<property name="lasteName" type="string" column="last_name" />
+
+		<property name="addressOne" type="string" column="address1" />
+		
+		<property name="addressTwo" type="string" column="address2" />
+		
+		<property name="streetNumber" type="string" column="street_number" />
+	
+		<property name="country" type="string" column="country" />
+
+		<property name="postalCode" type="string" column="postal_code" />
+
+		<property name="email" type="string" column="email" />
+
+		<property name="state" type="string" column="state" />
+
+		<property name="contactMobile" type="string" column="contact_mobile" />
+
+		<property name="userName" type="string" column="user_name" />
+
+		<property name="password" type="string" column="password" />
+
+		<property name="contactLand" type="string" column="contact_land" />
+
+		<property name="title" type="string" column="title" />
+
+		<property name="nicPassportNumber" type="string" column="nic_passport_no" />
+		
+		<property name="recoverQuestion" type="string" column="password_recover_question" />
+		
+		<property name="recoverAnswer" type="string" column="password_recover_answer" />
+
+		<many-to-one name="privilage" column="privilage_id" class="Privilage"
+			cascade="none" />
+
+		<sql-query name="customersByPrivilage">
+			<return alias="cus"  class="com.dampevillage.domain.Customer" />
+			
+				<![CDATA[
+					SELECT cus.* FROM customer cus WHERE cus.privilage_id = ?
+				]]>
+		</sql-query>
+		
+		<sql-query name="loadCustomerToRecoverpassword">
+			<return alias="cus"  class="com.dampevillage.domain.Customer" />
+			
+				<![CDATA[
+					SELECT cus.* FROM customer cus WHERE cus.password_recover_question= ?
+						AND cus.password_recover_answer= ?
+						AND cus.user_name= ?
+						AND cus.email= ?
+				]]>
+		</sql-query>
+		
+	</class>
+</hibernate-mapping>

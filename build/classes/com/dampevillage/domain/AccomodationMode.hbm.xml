@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.dampevillage.domain">
+
+	<class name="AccomodationMode" table="accomodation_mode">
+
+		<id name="id" column="accomodation_mode_id" type="int">
+			<generator class="increment" />
+		</id>
+
+		<property name="accomodation" type="string" column="accomodation"/>
+		
+	</class>
+</hibernate-mapping>
